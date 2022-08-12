@@ -64,7 +64,8 @@ export const createScroll = () => {
 
     hideScrollbar();
   };
-  renderScroll({ hidden: false });
+  // init scroll
+  window.addEventListener("scroll", () => renderScroll({ hidden: false }));
 
   // init scroll
   targetScroll.onChange(() => {
