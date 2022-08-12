@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/alvinleung/daybreak-scroll#readme",
   "dependencies": {
-    "parcel": "^2.7.0"
+    "parcel": "^2.7.0",
+    "popmotion": "^11.0.4"
   }
 }
