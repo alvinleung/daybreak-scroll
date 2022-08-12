@@ -131,3 +131,13 @@ export function createTimer() {
     },
   };
 }
+
+export function debounce(callback: Function, millisec: number) {
+  let timeoutId: number;
+  function triggerDebounce() {
+    if (timeoutId) clearTimeout(timeoutId);
+    timeoutId = setTimeout(callback, millisec);
+  }
+
+  return triggerDebounce;
+}

@@ -27,16 +27,18 @@ export const createScrollbarDOM = (): ScrollBarDOM => {
     right: "0px",
     top: "0px",
     bottom: "0px",
-    padding: "1",
+    paddingTop: "4px",
+    paddingBottom: "4px",
+    paddingRight: "4px",
+    width: "3px",
   });
 
   const scrollBar = document.createElement("div");
   stylesheet(scrollBar, {
-    // transitionProperty: "transform, height",
-    // transitionDuration: "0.1s",
-    width: "8px",
-    height: "5px",
-    backgroundColor: "#000",
+    transitionProperty: "transform, height, opacity",
+    transitionDuration: "0.2s",
+    height: "2px",
+    backgroundColor: "rgba(0,0,0,.75)",
     willChange: "transform, height",
   });
 
@@ -56,6 +58,7 @@ export const createScrollbarDOM = (): ScrollBarDOM => {
 
 interface ScrollBarDOMInterface {
   elms: ScrollBarDOM;
+  hidden: boolean;
   scrollPosition: number;
   documentHeight: number;
   viewportHeight: number;
@@ -65,18 +68,24 @@ const scrollMotion = createSmoothMotion({ initial: 0, smoothFactor: 0.05 });
 
 export const updateScrollbarDOM = ({
   elms,
+  hidden,
   documentHeight,
   viewportHeight,
   scrollPosition,
 }: ScrollBarDOMInterface) => {
   const scrollableLength = documentHeight - viewportHeight;
+  const scrollbarHeight = viewportHeight / documentHeight;
   const targetScrollProgress = scrollPosition / scrollableLength;
 
+  stylesheet(elms.scrollBar, {
+    transformOrigin: "top left",
+    y: `${targetScrollProgress * (1 - scrollbarHeight) * 100}%`,
+    height: "100%",
+    scaleY: scrollbarHeight,
+    opacity: hidden ? "0" : "1",
+  });
+
   scrollMotion.setValue(scrollPosition, (scrollPosition) => {
-    stylesheet(elms.scrollBar, {
-      transformOrigin: "top left",
-      y: `${scrollPosition}px`,
-    });
     stylesheet(document.body, {
       y: -scrollPosition + "px",
     });
@@ -104,7 +113,6 @@ function createSmoothMotion({ initial = 0, smoothFactor = 0.05 }) {
 
       const velocityAbs = Math.abs(velocity);
       const isDone = velocityAbs < 0.1;
-      console.log(currentScroll);
 
       if (!isDone) requestAnimationFrame(updateFrame);
     }
