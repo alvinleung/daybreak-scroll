@@ -28,7 +28,6 @@ export const createScroll = () => {
   const hideScrollbar = debounce(() => scrollBarHidden.set(false), 500);
 
   const captureHeight = () => {
-    console.log("capturing height");
     viewportHeight.set(scrollContainer.value.clientHeight);
     documentHeight.set(scrollContent.value.scrollHeight);
   };
@@ -59,11 +58,6 @@ export const createScroll = () => {
     setupScrollDOM(scrollContainer.value, scrollContent.value);
     captureHeight();
 
-    console.log(newScrollElement.clientHeight);
-    console.log(viewportHeight.value);
-    console.log(newScrollElement.children[0].scrollHeight);
-    console.log(documentHeight.value);
-
     // remove old scrollbar and add it to the new
     const scrollBarContainer = scrollBarElms.value.scrollBarConatiner;
     const scrollBar = scrollBarElms.value.scrollBar;
@@ -88,8 +82,6 @@ export const createScroll = () => {
         targetScroll.set(MIN_VALUE);
         return MIN_VALUE;
       }
-
-      // console.log(MAX_VALUE);
 
       if (targetScroll.value > MAX_VALUE && !isScrollingUp) {
         targetScroll.set(MAX_VALUE);

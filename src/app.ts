@@ -14,9 +14,6 @@ window.addEventListener("load", () => {
       ".scroll-container"
     ) as HTMLDivElement;
 
-    console.log("route change, setting up scorll");
-    console.log(scrollContainer);
-
     if (scrollContainer) {
       scroll.setScrollContainer(scrollContainer);
       return;
