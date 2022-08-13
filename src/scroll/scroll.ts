@@ -121,5 +121,14 @@ export const createScroll = () => {
     cleanupScrollListeners();
   };
 
-  return { cleanupScroll, scrollTo, setScrollContainer };
+  const observeScroll = targetScroll.onChange;
+  const unobserveScroll = targetScroll.unobserveChange;
+
+  return {
+    cleanupScroll,
+    scrollTo,
+    setScrollContainer,
+    observeScroll,
+    unobserveScroll,
+  };
 };
