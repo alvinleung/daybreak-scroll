@@ -22,4 +22,5 @@ window.addEventListener("load", () => {
   }
 
   router.observeRouteChange(() => refreshScrollContainer());
+  refreshScrollContainer();
 });
