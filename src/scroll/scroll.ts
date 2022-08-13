@@ -134,10 +134,13 @@ export const createScroll = () => {
   const observeScroll = currentScroll.onChange;
   const unobserveScroll = currentScroll.unobserveChange;
 
+  const recalculatePageHeight = captureHeight;
+
   return {
     cleanupScroll,
     scrollTo,
     setScrollContainer,
+    recalculatePageHeight,
     observeScroll,
     unobserveScroll,
   };
