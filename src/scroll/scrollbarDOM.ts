@@ -5,7 +5,7 @@ export const setupScrollDOM = (
   scrollContainer: HTMLDivElement,
   scrollContent: HTMLDivElement
 ) => {
-  scrollContainer.style.overflowY = "hidden";
+  scrollContainer.style.overflow = "hidden";
   scrollContainer.style.overflowAnchor = "none";
   scrollContainer.style.width = "100vw";
   scrollContainer.style.height = "100vh";
