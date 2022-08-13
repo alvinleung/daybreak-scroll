@@ -1,4 +1,4 @@
-import { createTimer, stylesheet } from "./util";
+import { createTimer, State, stylesheet } from "./util";
 import { spring } from "popmotion";
 
 export const setupScrollDOM = (
@@ -71,6 +71,7 @@ interface ScrollBarDOMInterface {
   scrollPosition: number;
   documentHeight: number;
   viewportHeight: number;
+  currentScroll: State<number>;
 }
 
 const scrollMotion = createSmoothMotion({ initial: 0, smoothFactor: 0.05 });
@@ -82,6 +83,7 @@ export const updateScrollbarDOM = ({
   documentHeight,
   viewportHeight,
   scrollPosition,
+  currentScroll,
 }: ScrollBarDOMInterface) => {
   const scrollableLength = documentHeight - viewportHeight;
   const scrollbarHeight = viewportHeight / documentHeight;
@@ -99,6 +101,7 @@ export const updateScrollbarDOM = ({
     stylesheet(scrollContent, {
       y: -scrollPosition + "px",
     });
+    currentScroll.set(scrollPosition);
   });
 };
 

@@ -13,6 +13,7 @@ import {
 
 export const createScroll = () => {
   const targetScroll = state(0);
+  const currentScroll = state(0);
   const scrollContainer = state<HTMLDivElement>(document.createElement("div"));
   const scrollContent = state<HTMLDivElement>(document.createElement("div"));
 
@@ -106,6 +107,7 @@ export const createScroll = () => {
       documentHeight: documentHeight.value,
       viewportHeight: viewportHeight.value,
       scrollPosition,
+      currentScroll,
     });
   }, [
     scrollBarElms,
@@ -124,8 +126,8 @@ export const createScroll = () => {
     cleanupScrollListeners();
   };
 
-  const observeScroll = targetScroll.onChange;
-  const unobserveScroll = targetScroll.unobserveChange;
+  const observeScroll = currentScroll.onChange;
+  const unobserveScroll = currentScroll.unobserveChange;
 
   return {
     cleanupScroll,
