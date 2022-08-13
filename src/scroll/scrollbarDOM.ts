@@ -107,12 +107,12 @@ export const updateScrollbarDOM = ({
     });
     requestAnimationFrame(() => {
       updateScrollBar();
+      requestAnimationFrame(() =>
+        stylesheet(scrollBar, {
+          transitionProperty: "transform, height, opacity",
+        })
+      );
     });
-    requestAnimationFrame(() =>
-      stylesheet(scrollBar, {
-        transitionProperty: "transform, height, opacity",
-      })
-    );
   } else {
     updateScrollBar();
   }
