@@ -71,6 +71,8 @@ export const createScroll = () => {
   });
 
   createStateRenderer(() => {
+    scrollBarHidden.set(false);
+
     // calculate the scroll position
     const scrollPosition = (() => {
       const MIN_VALUE = 0;
