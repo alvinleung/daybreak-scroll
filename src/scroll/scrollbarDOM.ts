@@ -103,9 +103,11 @@ export const updateScrollbarDOM = ({
 
   if (!smooth) {
     stylesheet(scrollBar, {
-      transitionProperty: "height, opacity",
+      transitionProperty: "opacity",
     });
-    requestAnimationFrame(() => updateScrollBar());
+    requestAnimationFrame(() => {
+      updateScrollBar();
+    });
     requestAnimationFrame(() =>
       stylesheet(scrollBar, {
         transitionProperty: "transform, height, opacity",
