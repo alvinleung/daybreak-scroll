@@ -24,6 +24,6 @@ window.addEventListener("load", () => {
     scroll.cleanupScroll();
   }
 
-  router.observeRouteChange(() => refreshScrollContainer());
+  router.observePageLoad(() => refreshScrollContainer());
   refreshScrollContainer();
 });
