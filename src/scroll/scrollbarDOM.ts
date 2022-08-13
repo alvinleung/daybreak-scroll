@@ -117,7 +117,7 @@ function createSmoothMotion({ initial = 0, smoothFactor = 0.05 }) {
   ) {
     targetScroll = target;
 
-    function updateFrame(f) {
+    function updateFrame() {
       // interpolate here
       velocity = (targetScroll - currentScroll) * smoothFactor;
       currentScroll += velocity;

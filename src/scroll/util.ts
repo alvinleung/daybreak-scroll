@@ -73,7 +73,7 @@ export function createObserver(): [
   };
   const unobserve = (callback: Function) => {
     const removeIndex = callbacks.indexOf(callback);
-    removeIndex !== -1 && callbacks.splice(removeIndex);
+    removeIndex !== -1 && callbacks.splice(removeIndex, 1);
   };
   function fire() {
     callbacks.forEach((callback) => callback());
