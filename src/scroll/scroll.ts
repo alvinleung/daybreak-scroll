@@ -96,14 +96,12 @@ export const createScroll = () => {
       const MIN_VALUE = 0;
       const MAX_VALUE = documentHeight.value - viewportHeight.value;
 
-      const isScrollingUp = targetScroll.value < targetScroll.prevValue;
-
-      if (targetScroll.value < MIN_VALUE && isScrollingUp) {
+      if (targetScroll.value < MIN_VALUE) {
         targetScroll.set(MIN_VALUE);
         return MIN_VALUE;
       }
 
-      if (targetScroll.value > MAX_VALUE && !isScrollingUp) {
+      if (targetScroll.value > MAX_VALUE) {
         targetScroll.set(MAX_VALUE);
         return MAX_VALUE;
       }
