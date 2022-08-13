@@ -27,6 +27,22 @@ export const createScroll = () => {
   const documentHeight = state(window.innerHeight);
   const hideScrollbar = debounce(() => scrollBarHidden.set(false), 500);
 
+  const handleScroll = (e: WheelEvent) => {
+    // handle scroll
+    targetScroll.set(targetScroll.value + e.deltaY);
+  };
+  const handleResize = () => captureHeight();
+
+  const addScrollListeners = () => {
+    window.addEventListener("wheel", handleScroll);
+    window.addEventListener("resize", handleResize);
+  };
+
+  const cleanupScrollListeners = () => {
+    window.removeEventListener("wheel", handleScroll);
+    window.removeEventListener("resize", handleResize);
+  };
+
   const captureHeight = () => {
     viewportHeight.set(scrollContainer.value.clientHeight);
     documentHeight.set(scrollContent.value.scrollHeight);
@@ -34,6 +50,9 @@ export const createScroll = () => {
 
   // re-init everything when the scroll container change
   scrollContainer.onChange((newScrollElement, prevScrollElement) => {
+    cleanupScrollListeners();
+    addScrollListeners();
+
     // setup scroll here
     scrollContent.set(newScrollElement.children[0] as HTMLDivElement);
     setupScrollDOM(scrollContainer.value, scrollContent.value);
@@ -94,21 +113,12 @@ export const createScroll = () => {
     documentHeight,
   ]);
 
-  const handleScroll = (e: WheelEvent) => {
-    // handle scroll
-    targetScroll.set(targetScroll.value + e.deltaY);
-  };
-  const handleResize = () => captureHeight();
-
-  window.addEventListener("wheel", handleScroll);
-  window.addEventListener("resize", handleResize);
-  const cleanupScroll = () => {
-    window.removeEventListener("wheel", handleScroll);
-    window.removeEventListener("resize", handleResize);
-  };
-
   const scrollTo = targetScroll.set;
   const setScrollContainer = scrollContainer.set;
+
+  const cleanupScroll = () => {
+    cleanupScrollListeners();
+  };
 
   return { cleanupScroll, scrollTo, setScrollContainer };
 };
