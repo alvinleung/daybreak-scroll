@@ -113,7 +113,7 @@ export const createScroll = () => {
       currentScroll,
       smooth: useSmoothMotion,
     });
-    useSmoothMotion = false;
+    useSmoothMotion = true;
   }, [
     scrollBarElms,
     scrollContent,
