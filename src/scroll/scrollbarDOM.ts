@@ -52,6 +52,7 @@ export const createScrollbarFactory = (): ScrollBarDOMFactory => {
       paddingBottom: "4px",
       paddingRight: "4px",
       width: "4px",
+      zIndex: "100000000",
     });
 
     return scrollBarContainer;
