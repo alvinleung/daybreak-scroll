@@ -25,7 +25,7 @@ export const createScroll = () => {
   const scrollBarHidden = state(false);
   const viewportHeight = state(0);
   const documentHeight = state(0);
-  const hideScrollbar = debounce(() => scrollBarHidden.set(false), 500);
+  const hideScrollbar = debounce(() => scrollBarHidden.set(true), 500);
 
   const captureHeight = () => {
     viewportHeight.set(scrollContainer.value.clientHeight);
