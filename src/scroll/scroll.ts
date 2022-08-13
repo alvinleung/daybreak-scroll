@@ -59,9 +59,9 @@ export const createScroll = () => {
     setupScrollDOM(scrollContainer.value, scrollContent.value);
     captureHeight();
 
-    console.log(scrollContainer.value);
+    console.log(newScrollElement.clientHeight);
     console.log(viewportHeight.value);
-    console.log(scrollContent.value);
+    console.log(newScrollElement.children[0].scrollHeight);
     console.log(documentHeight.value);
 
     // remove old scrollbar and add it to the new
