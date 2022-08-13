@@ -27,6 +27,11 @@ export const createScroll = () => {
   const documentHeight = state(window.innerHeight);
   const hideScrollbar = debounce(() => scrollBarHidden.set(false), 500);
 
+  const captureHeight = () => {
+    viewportHeight.set(scrollContainer.value.clientHeight);
+    documentHeight.set(scrollContent.value.scrollHeight);
+  };
+
   const handleScroll = (e: WheelEvent) => {
     // handle scroll
     targetScroll.set(targetScroll.value + e.deltaY);
@@ -43,11 +48,6 @@ export const createScroll = () => {
     window.removeEventListener("resize", handleResize);
   };
 
-  const captureHeight = () => {
-    viewportHeight.set(scrollContainer.value.clientHeight);
-    documentHeight.set(scrollContent.value.scrollHeight);
-  };
-
   // re-init everything when the scroll container change
   scrollContainer.onChange((newScrollElement, prevScrollElement) => {
     cleanupScrollListeners();
@@ -57,6 +57,11 @@ export const createScroll = () => {
     scrollContent.set(newScrollElement.children[0] as HTMLDivElement);
     setupScrollDOM(scrollContainer.value, scrollContent.value);
     captureHeight();
+
+    console.log(scrollContainer.value);
+    console.log(viewportHeight.value);
+    console.log(scrollContent.value);
+    console.log(documentHeight.value);
 
     // remove old scrollbar and add it to the new
     const scrollBarContainer = scrollBarElms.value.scrollBarConatiner;
