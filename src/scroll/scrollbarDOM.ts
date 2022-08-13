@@ -11,7 +11,7 @@ export const setupScrollDOM = (
   scrollContainer.style.height = "100vh";
 
   // to cancel all the margin collapsing
-  scrollContainer.style.display = "flex";
+  // scrollContainer.style.display = "flex";
 
   scrollContent.style.maxWidth = "100%";
 
