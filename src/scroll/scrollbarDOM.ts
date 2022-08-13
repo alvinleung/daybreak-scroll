@@ -91,13 +91,29 @@ export const updateScrollbarDOM = ({
   const scrollbarHeight = viewportHeight / documentHeight;
   const targetScrollProgress = scrollPosition / scrollableLength;
 
-  stylesheet(scrollBar, {
-    transformOrigin: "top left",
-    y: `${targetScrollProgress * (1 - scrollbarHeight) * 100}%`,
-    height: "100%",
-    scaleY: scrollbarHeight,
-    opacity: hidden ? "0" : "1",
-  });
+  const updateScrollBar = () => {
+    stylesheet(scrollBar, {
+      transformOrigin: "top left",
+      y: `${targetScrollProgress * (1 - scrollbarHeight) * 100}%`,
+      height: "100%",
+      scaleY: scrollbarHeight,
+      opacity: hidden ? "0" : "1",
+    });
+  };
+
+  if (!smooth) {
+    stylesheet(scrollBar, {
+      transitionProperty: "height, opacity",
+    });
+    requestAnimationFrame(() => updateScrollBar());
+    requestAnimationFrame(() =>
+      stylesheet(scrollBar, {
+        transitionProperty: "transform, height, opacity",
+      })
+    );
+  } else {
+    updateScrollBar();
+  }
 
   scrollMotion.setValue(
     scrollPosition,
