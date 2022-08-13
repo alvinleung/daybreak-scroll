@@ -30,7 +30,8 @@ export const createScrollbarFactory = (): ScrollBarDOMFactory => {
     stylesheet(scrollBar, {
       transitionProperty: "transform, height, opacity",
       transitionDuration: "0.2s",
-      height: "2px",
+      height: "100%",
+      width: "100%",
       backgroundColor: "rgba(0,0,0,.75)",
       willChange: "transform, height",
     });
