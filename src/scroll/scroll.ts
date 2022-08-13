@@ -23,6 +23,8 @@ export const createScroll = () => {
     scrollBarConatiner: scrollBarFactory.getScrollBarContainer(),
   });
 
+  let useSmoothMotion = true;
+
   const isScrollBarHidden = state(false);
   const viewportHeight = state(0);
   const documentHeight = state(0);
@@ -71,6 +73,7 @@ export const createScroll = () => {
     newScrollElement.appendChild(scrollBarContainer);
 
     // reset scroll
+    useSmoothMotion = false;
     targetScroll.set(0);
   });
 
@@ -108,7 +111,9 @@ export const createScroll = () => {
       viewportHeight: viewportHeight.value,
       scrollPosition,
       currentScroll,
+      smooth: useSmoothMotion,
     });
+    useSmoothMotion = false;
   }, [
     scrollBarElms,
     scrollContent,

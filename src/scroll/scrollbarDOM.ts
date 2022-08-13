@@ -68,6 +68,7 @@ interface ScrollBarDOMInterface {
   scrollBar: HTMLDivElement;
   scrollContent: HTMLDivElement;
   hidden: boolean;
+  smooth: boolean;
   scrollPosition: number;
   documentHeight: number;
   viewportHeight: number;
@@ -84,6 +85,7 @@ export const updateScrollbarDOM = ({
   viewportHeight,
   scrollPosition,
   currentScroll,
+  smooth,
 }: ScrollBarDOMInterface) => {
   const scrollableLength = documentHeight - viewportHeight;
   const scrollbarHeight = viewportHeight / documentHeight;
@@ -97,12 +99,16 @@ export const updateScrollbarDOM = ({
     opacity: hidden ? "0" : "1",
   });
 
-  scrollMotion.setValue(scrollPosition, (scrollPosition) => {
-    stylesheet(scrollContent, {
-      y: -scrollPosition + "px",
-    });
-    currentScroll.set(scrollPosition);
-  });
+  scrollMotion.setValue(
+    scrollPosition,
+    (scrollPosition) => {
+      stylesheet(scrollContent, {
+        y: -scrollPosition + "px",
+      });
+      currentScroll.set(scrollPosition);
+    },
+    smooth
+  );
 };
 
 function createSmoothMotion({ initial = 0, smoothFactor = 0.05 }) {
@@ -113,9 +119,16 @@ function createSmoothMotion({ initial = 0, smoothFactor = 0.05 }) {
 
   function updateScrollMotion(
     target: number,
-    updateFunction: (newValue: number) => void
+    updateFunction: (newValue: number) => void,
+    smooth: boolean = true
   ) {
     targetScroll = target;
+
+    if (!smooth) {
+      currentScroll = targetScroll;
+      updateFunction(currentScroll);
+      return;
+    }
 
     function updateFrame() {
       // interpolate here
