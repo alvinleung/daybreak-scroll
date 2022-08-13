@@ -33,7 +33,7 @@ export const createScrollbarFactory = (): ScrollBarDOMFactory => {
       transitionProperty: "transform, height, opacity",
       transitionDuration: "0.2s",
       height: "100%",
-      width: "100%",
+      width: "4px",
       backgroundColor: "rgba(0,0,0,.75)",
       willChange: "transform, height",
     });
@@ -51,7 +51,7 @@ export const createScrollbarFactory = (): ScrollBarDOMFactory => {
       paddingTop: "4px",
       paddingBottom: "4px",
       paddingRight: "4px",
-      width: "3px",
+      width: "4px",
     });
 
     return scrollBarContainer;
