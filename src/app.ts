@@ -13,7 +13,12 @@ window.addEventListener("load", () => {
     const scrollContainer = document.querySelector(
       ".scroll-container"
     ) as HTMLDivElement;
-    scroll.setScrollContainer(scrollContainer);
+
+    if (scrollContainer) {
+      scroll.setScrollContainer(scrollContainer);
+      return;
+    }
+    scroll.cleanupScroll();
   }
 
   router.observeRouteChange(() => refreshScrollContainer());
