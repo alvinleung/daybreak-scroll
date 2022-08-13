@@ -22,10 +22,10 @@ export const createScroll = () => {
     scrollBarConatiner: scrollBarFactory.getScrollBarContainer(),
   });
 
-  const scrollBarHidden = state(false);
+  const isScrollBarHidden = state(false);
   const viewportHeight = state(0);
   const documentHeight = state(0);
-  const hideScrollbar = debounce(() => scrollBarHidden.set(true), 500);
+  const hideScrollbar = debounce(() => isScrollBarHidden.set(true), 500);
 
   const captureHeight = () => {
     viewportHeight.set(scrollContainer.value.clientHeight);
@@ -70,9 +70,12 @@ export const createScroll = () => {
     newScrollElement.appendChild(scrollBarContainer);
   });
 
-  createStateRenderer(() => {
-    scrollBarHidden.set(false);
+  targetScroll.onChange(() => {
+    isScrollBarHidden.set(false);
+    hideScrollbar();
+  });
 
+  createStateRenderer(() => {
     // calculate the scroll position
     const scrollPosition = (() => {
       const MIN_VALUE = 0;
@@ -96,19 +99,17 @@ export const createScroll = () => {
     updateScrollbarDOM({
       scrollBar: scrollBarElms.value.scrollBar,
       scrollContent: scrollContent.value,
-      hidden: scrollBarHidden.value,
+      hidden: isScrollBarHidden.value,
       documentHeight: documentHeight.value,
       viewportHeight: viewportHeight.value,
       scrollPosition,
     });
-
-    hideScrollbar();
   }, [
     scrollBarElms,
     scrollContent,
     scrollContainer,
     targetScroll,
-    scrollBarHidden,
+    isScrollBarHidden,
     viewportHeight,
     documentHeight,
   ]);
