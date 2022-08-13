@@ -68,6 +68,9 @@ export const createScroll = () => {
 
     scrollBarContainer.appendChild(scrollBar);
     newScrollElement.appendChild(scrollBarContainer);
+
+    // reset scroll
+    targetScroll.set(0);
   });
 
   targetScroll.onChange(() => {
