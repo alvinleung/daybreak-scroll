@@ -31,7 +31,10 @@ export function state<T>(initial: T): State<T> {
     },
     unobserveChange: (callback: StateChangeCallback<T>) => {
       const removeIndex = allCallbacks.indexOf(callback);
-      allCallbacks.splice(removeIndex, 1);
+      console.log(removeIndex);
+      console.log(allCallbacks);
+      console.log(callback);
+      removeIndex !== -1 && allCallbacks.splice(removeIndex, 1);
     },
   };
 
@@ -73,9 +76,6 @@ export function createObserver(): [
   };
   const unobserve = (callback: Function) => {
     const removeIndex = callbacks.indexOf(callback);
-    console.log(callback);
-    console.log(removeIndex);
-    console.log(callback);
 
     removeIndex !== -1 && callbacks.splice(removeIndex, 1);
   };
