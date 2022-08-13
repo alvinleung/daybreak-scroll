@@ -75,6 +75,14 @@ export const createScroll = () => {
     // reset scroll
     useSmoothMotion = false;
     targetScroll.set(0);
+
+    // for image loading
+    // when new image loaded, it might affact the scroll height
+    document.querySelectorAll("img").forEach((img) => {
+      img.addEventListener("load", () => {
+        captureHeight();
+      })
+    })
   });
 
   targetScroll.onChange(() => {
