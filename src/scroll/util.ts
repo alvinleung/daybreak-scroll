@@ -39,6 +39,30 @@ export function state<T>(initial: T): State<T> {
   return state;
 }
 
+/**
+ * Render states in the next animation frame
+ * @param states
+ * @param renderFunction
+ */
+export function createStateRenderer(
+  renderFunction: Function,
+  states: State<any>[] = []
+) {
+  let hasUnrenderedState = false;
+  function attemptRender() {
+    // if (!hasUnrenderedState) return;
+    renderFunction();
+    hasUnrenderedState = false;
+  }
+  states.forEach((state) => state.onChange(() => triggerRender()));
+  function triggerRender() {
+    // Only render if there's new state
+    if (hasUnrenderedState) return;
+    hasUnrenderedState = true;
+    requestAnimationFrame(attemptRender);
+  }
+}
+
 export function createObserver(): [
   (callback: Function) => void,
   (callback: Function) => void,
