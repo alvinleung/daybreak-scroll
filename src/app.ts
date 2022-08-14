@@ -3,7 +3,10 @@ import { createScroll } from "./scroll/scroll";
 const scroll = createScroll();
 
 //@ts-ignore expose scroll api
-window.daybreakScroll = scroll;
+window.daybreak = window.daybreak || {};
+//@ts-ignore expose scroll api
+window.daybreak.scroll = scroll;
+
 
 window.addEventListener("load", () => {
   //@ts-ignore
