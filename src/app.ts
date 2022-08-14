@@ -10,7 +10,7 @@ window.daybreak.scroll = scroll;
 
 window.addEventListener("load", () => {
   //@ts-ignore
-  const router = window.router;
+  const router = window.daybreak.router;
 
   function refreshScrollContainer() {
     const scrollContainer = document.querySelector(
