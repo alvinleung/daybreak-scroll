@@ -8,7 +8,7 @@ window.daybreak = window.daybreak || {};
 window.daybreak.scroll = scroll;
 
 
-document.addEventListener("DOMContentLoaded ", () => {
+const initScroll = () => {
   //@ts-ignore
   const router = window.daybreak.router;
 
@@ -28,4 +28,10 @@ document.addEventListener("DOMContentLoaded ", () => {
 
   router.observePageLoad(() => refreshScrollContainer());
   refreshScrollContainer();
-});
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded ", initScroll);
+} else {
+  initScroll();
+}
