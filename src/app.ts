@@ -10,6 +10,8 @@ window.daybreak.scroll = scroll;
 
 console.log("scroll module loading")
 
+document.body.style.overflow = "hidden";
+
 const initScroll = () => {
   //@ts-ignore
   const router = window.daybreak.router;
