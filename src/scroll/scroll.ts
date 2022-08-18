@@ -144,6 +144,8 @@ export const createScroll = () => {
 
   const isInViewport = (elm: HTMLElement) => {
     const bounds = elm.getBoundingClientRect();
+    console.log(viewportHeight.value);
+
     return (
       bounds.bottom >= 0 &&
       bounds.top <= (viewportHeight.value)
