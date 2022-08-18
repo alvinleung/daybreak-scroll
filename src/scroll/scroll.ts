@@ -142,6 +142,14 @@ export const createScroll = () => {
 
   const recalculatePageHeight = captureHeight;
 
+  const isInViewport = (elm: HTMLElement) => {
+    const bounds = elm.getBoundingClientRect();
+    return (
+      bounds.bottom >= 0 &&
+      bounds.top <= (viewportHeight.value)
+    );
+  }
+
   return {
     cleanupScroll,
     scrollTo,
@@ -149,5 +157,6 @@ export const createScroll = () => {
     recalculatePageHeight,
     observeScroll,
     unobserveScroll,
+    isInViewport
   };
 };
