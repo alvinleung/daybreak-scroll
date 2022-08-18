@@ -35,7 +35,7 @@ const initScroll = () => {
 };
 
 if (document.readyState === "loading") {
-  window.addEventListener("DOMContentLoaded ", initScroll);
+  window.addEventListener("DOMContentLoaded", initScroll);
   console.log("loaded before document ready, adding event listener")
 } else {
   console.log("executing right away");
