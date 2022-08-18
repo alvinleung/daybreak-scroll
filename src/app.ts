@@ -8,6 +8,8 @@ window.daybreak = window.daybreak || {};
 window.daybreak.scroll = scroll;
 
 
+console.log("scroll module loading")
+
 const initScroll = () => {
   //@ts-ignore
   const router = window.daybreak.router;
@@ -15,6 +17,8 @@ const initScroll = () => {
   console.log("DOM content loaded, setting up scroll")
 
   function refreshScrollContainer() {
+    console.log("changing scroll container ")
+
     const scrollContainer = document.querySelector(
       ".scroll-container"
     ) as HTMLDivElement;
@@ -31,7 +35,9 @@ const initScroll = () => {
 };
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded ", initScroll);
+  window.addEventListener("DOMContentLoaded ", initScroll);
+  console.log("loaded before document ready, adding event listener")
 } else {
+  console.log("executing right away");
   initScroll();
 }
