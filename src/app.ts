@@ -8,18 +8,13 @@ window.daybreak = window.daybreak || {};
 window.daybreak.scroll = scroll;
 
 
-console.log("scroll module loading")
-
 document.body.style.overflow = "hidden";
 
 const initScroll = () => {
   //@ts-ignore
   const router = window.daybreak.router;
 
-  console.log("DOM content loaded, setting up scroll")
-
   function refreshScrollContainer() {
-    console.log("changing scroll container ")
 
     const scrollContainer = document.querySelector(
       ".scroll-container"
@@ -38,8 +33,6 @@ const initScroll = () => {
 
 if (document.readyState === "loading") {
   window.addEventListener("DOMContentLoaded", initScroll);
-  console.log("loaded before document ready, adding event listener")
 } else {
-  console.log("executing right away");
   initScroll();
 }
