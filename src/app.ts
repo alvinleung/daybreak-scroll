@@ -8,7 +8,7 @@ window.daybreak = window.daybreak || {};
 window.daybreak.scroll = scroll;
 
 
-window.addEventListener("DOMContentLoaded ", () => {
+document.addEventListener("DOMContentLoaded ", () => {
   //@ts-ignore
   const router = window.daybreak.router;
 
