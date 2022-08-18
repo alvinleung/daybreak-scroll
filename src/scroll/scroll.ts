@@ -26,7 +26,7 @@ export const createScroll = () => {
   let useSmoothMotion = true;
 
   const isScrollBarHidden = state(false);
-  const viewportHeight = state(0);
+  const viewportHeight = state(window.innerHeight);
   const documentHeight = state(0);
   const hideScrollbar = debounce(() => isScrollBarHidden.set(true), 500);
 
@@ -144,7 +144,6 @@ export const createScroll = () => {
 
   const isInViewport = (elm: HTMLElement) => {
     const bounds = elm.getBoundingClientRect();
-    console.log(viewportHeight.value);
 
     return (
       bounds.bottom >= 0 &&
