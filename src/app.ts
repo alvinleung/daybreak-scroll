@@ -7,9 +7,6 @@ window.daybreak = window.daybreak || {};
 //@ts-ignore expose scroll api
 window.daybreak.scroll = scroll;
 
-
-document.body.style.overflow = "hidden";
-
 const initScroll = () => {
   //@ts-ignore
   const router = window.daybreak.router;
