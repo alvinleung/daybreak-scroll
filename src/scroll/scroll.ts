@@ -14,6 +14,7 @@ import {
 export const createScroll = () => {
   const targetScroll = state(0);
   const currentScroll = state(0);
+  const isTouchInput = state(false);
   const scrollContainer = state<HTMLDivElement>(document.createElement("div"));
   const scrollContent = state<HTMLDivElement>(document.createElement("div"));
 
@@ -42,21 +43,19 @@ export const createScroll = () => {
   const handleResize = () => captureHeight();
 
   const handleMobileScroll = (e: Event) => {
-    if (!isMobile.value) return;
+    if (!isTouchInput.value) return;
     currentScroll.set(scrollContainer.value.scrollTop);
-    console.log(currentScroll.value)
   }
 
-
-  const isMobile = state(false);
   const handleTouchStart = (e: TouchEvent) => {
-    isMobile.set(true);
+    isTouchInput.set(true);
+    hideScrollbar();
   }
 
-  isMobile.onChange((isMobile) => {
-    if (!isMobile) return;
+  isTouchInput.onChange((isTouchInput) => {
+    if (!isTouchInput) return;
     // remove mobile state
-    setupScrollDOM(scrollContainer.value, scrollContent.value, isMobile);
+    setupScrollDOM(scrollContainer.value, scrollContent.value, isTouchInput);
   })
 
 
@@ -81,7 +80,7 @@ export const createScroll = () => {
 
     // setup scroll here
     scrollContent.set(newScrollElement.children[0] as HTMLDivElement);
-    setupScrollDOM(scrollContainer.value, scrollContent.value, isMobile.value);
+    setupScrollDOM(scrollContainer.value, scrollContent.value, isTouchInput.value);
     captureHeight();
 
     // remove old scrollbar and add it to the new
@@ -114,6 +113,10 @@ export const createScroll = () => {
   });
 
   createStateRenderer(() => {
+
+    // only smooth scroll for desktop
+    if (isTouchInput.value) return;
+
     // calculate the scroll position
     const scrollPosition = (() => {
       const MIN_VALUE = 0;

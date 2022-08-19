@@ -4,10 +4,11 @@ import { spring } from "popmotion";
 export const setupScrollDOM = (
   scrollContainer: HTMLDivElement,
   scrollContent: HTMLDivElement,
-  isMobile: boolean
+  isTouchInput: boolean
 ) => {
 
-  scrollContainer.style.overflow = isMobile ? "scroll" : "hidden";
+  scrollContainer.style.overflowY = isTouchInput ? "scroll" : "hidden";
+  scrollContainer.style.overflowX = "hidden";
   scrollContainer.style.overflowAnchor = "none";
   scrollContainer.style.width = "100vw";
   scrollContainer.style.height = "100vh";
