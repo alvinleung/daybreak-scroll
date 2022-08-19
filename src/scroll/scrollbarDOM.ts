@@ -3,15 +3,17 @@ import { spring } from "popmotion";
 
 export const setupScrollDOM = (
   scrollContainer: HTMLDivElement,
-  scrollContent: HTMLDivElement
+  scrollContent: HTMLDivElement,
+  isMobile: boolean
 ) => {
-  scrollContainer.style.overflow = "hidden";
+
+  scrollContainer.style.overflow = isMobile ? "scroll" : "hidden";
   scrollContainer.style.overflowAnchor = "none";
   scrollContainer.style.width = "100vw";
   scrollContainer.style.height = "100vh";
 
   // to cancel all the margin collapsing
-  scrollContainer.style.display = "flex";
+  scrollContainer.style.display = "flex"
 
   scrollContent.style.width = "100%";
 

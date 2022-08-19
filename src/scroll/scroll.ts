@@ -35,30 +35,53 @@ export const createScroll = () => {
     documentHeight.set(scrollContent.value.scrollHeight);
   };
 
-  const handleScroll = (e: WheelEvent) => {
+  const handleWheel = (e: WheelEvent) => {
     // handle scroll
     targetScroll.set(targetScroll.value + e.deltaY);
   };
   const handleResize = () => captureHeight();
 
-  const addScrollListeners = () => {
-    window.addEventListener("wheel", handleScroll);
+  const handleMobileScroll = (e: Event) => {
+    if (!isMobile.value) return;
+    currentScroll.set(scrollContainer.value.scrollTop);
+    console.log(currentScroll.value)
+  }
+
+
+  const isMobile = state(false);
+  const handleTouchStart = (e: TouchEvent) => {
+    isMobile.set(true);
+  }
+
+  isMobile.onChange((isMobile) => {
+    if (!isMobile) return;
+    // remove mobile state
+    setupScrollDOM(scrollContainer.value, scrollContent.value, isMobile);
+  })
+
+
+  const addScrollListeners = (newScrollContainer: HTMLDivElement) => {
+    window.addEventListener("wheel", handleWheel);
+    window.addEventListener("touchstart", handleTouchStart);
+    newScrollContainer.addEventListener("scroll", handleMobileScroll);
     window.addEventListener("resize", handleResize);
   };
 
-  const cleanupScrollListeners = () => {
-    window.removeEventListener("wheel", handleScroll);
+  const cleanupScrollListeners = (oldScrollContainer: HTMLDivElement) => {
+    window.removeEventListener("wheel", handleWheel);
+    window.removeEventListener("touchstart", handleTouchStart);
+    oldScrollContainer.addEventListener("scroll", handleMobileScroll);
     window.removeEventListener("resize", handleResize);
   };
 
   // re-init everything when the scroll container change
   scrollContainer.onChange((newScrollElement, prevScrollElement) => {
-    cleanupScrollListeners();
-    addScrollListeners();
+    cleanupScrollListeners(prevScrollElement);
+    addScrollListeners(newScrollElement);
 
     // setup scroll here
     scrollContent.set(newScrollElement.children[0] as HTMLDivElement);
-    setupScrollDOM(scrollContainer.value, scrollContent.value);
+    setupScrollDOM(scrollContainer.value, scrollContent.value, isMobile.value);
     captureHeight();
 
     // remove old scrollbar and add it to the new
@@ -134,7 +157,7 @@ export const createScroll = () => {
   const setScrollContainer = scrollContainer.set;
 
   const cleanupScroll = () => {
-    cleanupScrollListeners();
+    cleanupScrollListeners(scrollContainer.value);
   };
 
   const observeScroll = currentScroll.onChange;
