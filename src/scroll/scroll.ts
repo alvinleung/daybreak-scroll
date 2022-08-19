@@ -61,9 +61,8 @@ export const createScroll = () => {
       stylesheet(scrollBarElms.value.scrollBar, {
         opacity: "0"
       });
+      jumpToScroll(scrollContainer.value.scrollTop);
     }
-
-    scrollTo(scrollContainer.value.scrollTop);
 
     // toggle scroll method
     setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput);
@@ -83,6 +82,11 @@ export const createScroll = () => {
     oldScrollContainer.addEventListener("scroll", handleMobileScroll);
     window.removeEventListener("resize", handleResize);
   };
+
+  const jumpToScroll = (position: number) => {
+    useSmoothMotion = false;
+    targetScroll.set(position);
+  }
 
   // re-init everything when the scroll container change
   scrollContainer.onChange((newScrollElement, prevScrollElement) => {
@@ -106,8 +110,7 @@ export const createScroll = () => {
     newScrollElement.appendChild(scrollBarContainer);
 
     // reset scroll
-    useSmoothMotion = false;
-    targetScroll.set(0);
+    jumpToScroll(0);
 
     // for image loading
     // when new image loaded, it might affact the scroll height
