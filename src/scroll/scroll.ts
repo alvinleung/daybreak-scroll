@@ -14,8 +14,6 @@ import {
 
 const isTouchDevice: any = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement);
 
-console.log(isTouchDevice);
-
 export const createScroll = () => {
   const targetScroll = state(0);
   const currentScroll = state(0);
@@ -42,7 +40,7 @@ export const createScroll = () => {
   };
 
   const handleWheel = (e: WheelEvent) => {
-    useTouchInput.set(false);
+    if (useTouchInput.value === true) useTouchInput.set(false);
     targetScroll.set(targetScroll.value + e.deltaY);
   };
   const handleResize = () => captureHeight();
@@ -59,7 +57,7 @@ export const createScroll = () => {
 
   useTouchInput.onChange((useTouchInput) => {
     // toggle scroll method
-    setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput);
+    setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput.value);
   })
 
 
