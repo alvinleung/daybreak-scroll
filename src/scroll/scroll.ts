@@ -56,13 +56,14 @@ export const createScroll = () => {
   }
 
   useTouchInput.onChange((useTouchInput) => {
-
     // hide scroll bar when use touch input
     if (useTouchInput) {
       stylesheet(scrollBarElms.value.scrollBar, {
         opacity: "0"
       });
     }
+
+    scrollTo(scrollContainer.value.scrollTop);
 
     // toggle scroll method
     setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput);
