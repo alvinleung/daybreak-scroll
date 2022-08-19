@@ -57,7 +57,7 @@ export const createScroll = () => {
 
   useTouchInput.onChange((useTouchInput) => {
     // toggle scroll method
-    setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput.value);
+    setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput);
   })
 
 
