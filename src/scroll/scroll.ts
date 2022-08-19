@@ -52,7 +52,7 @@ export const createScroll = () => {
 
   const handleTouchStart = (e: TouchEvent) => {
     useTouchInput.set(true);
-    hideScrollbar();
+    isScrollBarHidden.set(true);
   }
 
   useTouchInput.onChange((useTouchInput) => {

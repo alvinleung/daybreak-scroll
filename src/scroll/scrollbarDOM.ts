@@ -6,8 +6,6 @@ export const setupScrollDOM = (
   scrollContent: HTMLDivElement,
   isTouchInput: boolean
 ) => {
-  console.log(isTouchInput);
-
   scrollContainer.style.overflowY = isTouchInput ? "scroll" : "hidden";
   scrollContainer.style.overflowX = "hidden";
   scrollContainer.style.overflowAnchor = "none";
