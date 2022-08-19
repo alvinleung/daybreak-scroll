@@ -116,7 +116,7 @@ export const createScroll = () => {
 
   createStateRenderer(() => {
     // only smooth scroll for desktop
-    if (useTouchInput.value === false) return;
+    if (useTouchInput.value === true) return;
 
     // calculate the scroll position
     const scrollPosition = (() => {
