@@ -14,6 +14,8 @@ import {
 
 const isTouchDevice: any = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement);
 
+console.log(isTouchDevice);
+
 export const createScroll = () => {
   const targetScroll = state(0);
   const currentScroll = state(0);
