@@ -11,10 +11,13 @@ import {
   stylesheet,
 } from "./util";
 
+
+const isTouchDevice: any = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement);
+
 export const createScroll = () => {
   const targetScroll = state(0);
   const currentScroll = state(0);
-  const isTouchInput = state(false);
+  const useTouchInput = state(isTouchDevice);
   const scrollContainer = state<HTMLDivElement>(document.createElement("div"));
   const scrollContent = state<HTMLDivElement>(document.createElement("div"));
 
@@ -37,24 +40,24 @@ export const createScroll = () => {
   };
 
   const handleWheel = (e: WheelEvent) => {
-    isTouchInput.set(false);
+    useTouchInput.set(false);
     targetScroll.set(targetScroll.value + e.deltaY);
   };
   const handleResize = () => captureHeight();
 
   const handleMobileScroll = (e: Event) => {
-    if (!isTouchInput.value) return;
+    if (!useTouchInput.value) return;
     currentScroll.set(scrollContainer.value.scrollTop);
   }
 
   const handleTouchStart = (e: TouchEvent) => {
-    isTouchInput.set(true);
+    useTouchInput.set(true);
     hideScrollbar();
   }
 
-  isTouchInput.onChange((isTouchInput) => {
+  useTouchInput.onChange((useTouchInput) => {
     // toggle scroll method
-    setupScrollDOM(scrollContainer.value, scrollContent.value, isTouchInput);
+    setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput);
   })
 
 
@@ -79,7 +82,7 @@ export const createScroll = () => {
 
     // setup scroll here
     scrollContent.set(newScrollElement.children[0] as HTMLDivElement);
-    setupScrollDOM(scrollContainer.value, scrollContent.value, isTouchInput.value);
+    setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput.value);
     captureHeight();
 
     // remove old scrollbar and add it to the new
@@ -113,7 +116,7 @@ export const createScroll = () => {
 
   createStateRenderer(() => {
     // only smooth scroll for desktop
-    if (isTouchInput.value === false) return;
+    if (useTouchInput.value === false) return;
 
     // calculate the scroll position
     const scrollPosition = (() => {
@@ -145,7 +148,7 @@ export const createScroll = () => {
     });
     useSmoothMotion = true;
   }, [
-    isTouchInput,
+    useTouchInput,
     scrollBarElms,
     scrollContent,
     scrollContainer,
