@@ -38,6 +38,7 @@ export const createScrollbarFactory = (): ScrollBarDOMFactory => {
       width: "4px",
       backgroundColor: "rgba(0,0,0,.75)",
       willChange: "transform, height",
+      opacity: "0"
     });
     return scrollBar;
   }
