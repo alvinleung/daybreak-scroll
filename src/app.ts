@@ -24,7 +24,7 @@ const initScroll = () => {
     scroll.cleanupScroll();
   }
 
-  router.observePageLoad(() => refreshScrollContainer());
+  router && router.observePageLoad(() => refreshScrollContainer());
   refreshScrollContainer();
 };
 
