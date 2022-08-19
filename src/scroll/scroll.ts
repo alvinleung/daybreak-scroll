@@ -37,7 +37,7 @@ export const createScroll = () => {
   };
 
   const handleWheel = (e: WheelEvent) => {
-    // handle scroll
+    isTouchInput.set(false);
     targetScroll.set(targetScroll.value + e.deltaY);
   };
   const handleResize = () => captureHeight();
@@ -53,8 +53,7 @@ export const createScroll = () => {
   }
 
   isTouchInput.onChange((isTouchInput) => {
-    if (!isTouchInput) return;
-    // remove mobile state
+    // toggle scroll method
     setupScrollDOM(scrollContainer.value, scrollContent.value, isTouchInput);
   })
 
@@ -113,9 +112,8 @@ export const createScroll = () => {
   });
 
   createStateRenderer(() => {
-
     // only smooth scroll for desktop
-    if (isTouchInput.value) return;
+    if (isTouchInput.value === false) return;
 
     // calculate the scroll position
     const scrollPosition = (() => {
@@ -147,6 +145,7 @@ export const createScroll = () => {
     });
     useSmoothMotion = true;
   }, [
+    isTouchInput,
     scrollBarElms,
     scrollContent,
     scrollContainer,
