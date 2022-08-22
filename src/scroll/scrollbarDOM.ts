@@ -1,5 +1,4 @@
 import { createTimer, State, stylesheet } from "./util";
-import { spring } from "popmotion";
 
 export const setupScrollDOM = (
   scrollContainer: HTMLDivElement,
@@ -13,7 +12,7 @@ export const setupScrollDOM = (
   scrollContainer.style.height = "100vh";
 
   // to cancel all the margin collapsing
-  scrollContainer.style.display = "flex"
+  scrollContainer.style.display = "flex";
 
   scrollContent.style.width = "100%";
 
@@ -38,7 +37,7 @@ export const createScrollbarFactory = (): ScrollBarDOMFactory => {
       width: "4px",
       backgroundColor: "rgba(0,0,0,.75)",
       willChange: "transform, height",
-      opacity: "0"
+      opacity: "0",
     });
     return scrollBar;
   }
@@ -94,7 +93,7 @@ export const updateScrollbarDOM = ({
   const scrollbarHeight = viewportHeight / documentHeight;
   const targetScrollProgress = scrollPosition / scrollableLength;
 
-  const updateScrollBar = () => {
+  const updateScrollBar = (targetScrollProgress: number) => {
     stylesheet(scrollBar, {
       transformOrigin: "top left",
       y: `${targetScrollProgress * (1 - scrollbarHeight) * 100}%`,
@@ -109,7 +108,7 @@ export const updateScrollbarDOM = ({
       transitionProperty: "opacity",
     });
     requestAnimationFrame(() => {
-      updateScrollBar();
+      updateScrollBar(targetScrollProgress);
       requestAnimationFrame(() =>
         stylesheet(scrollBar, {
           transitionProperty: "transform, height, opacity",
@@ -117,7 +116,7 @@ export const updateScrollbarDOM = ({
       );
     });
   } else {
-    updateScrollBar();
+    updateScrollBar(targetScrollProgress);
   }
 
   scrollMotion.setValue(
@@ -127,6 +126,7 @@ export const updateScrollbarDOM = ({
         y: -scrollPosition + "px",
       });
       currentScroll.set(scrollPosition);
+      updateScrollBar(scrollPosition / scrollbarHeight);
     },
     smooth
   );
