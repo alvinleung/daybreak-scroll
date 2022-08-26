@@ -8,8 +8,8 @@ export const setupScrollDOM = (
   scrollContainer.style.overflowY = isTouchInput ? "scroll" : "hidden";
   scrollContainer.style.overflowX = "hidden";
   scrollContainer.style.overflowAnchor = "none";
-  scrollContainer.style.width = "100vw";
-  scrollContainer.style.height = "100vh";
+  scrollContainer.style.width = "100%";
+  // scrollContainer.style.height = "100vh";
 
   // to cancel all the margin collapsing
   scrollContainer.style.display = "flex";
