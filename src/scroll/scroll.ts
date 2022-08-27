@@ -11,8 +11,8 @@ import {
   stylesheet,
 } from "./util";
 
-
-const isTouchDevice: any = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement);
+const isTouchDevice: any =
+  navigator.maxTouchPoints || "ontouchstart" in document.documentElement;
 
 export const createScroll = () => {
   const targetScroll = state(0);
@@ -48,26 +48,32 @@ export const createScroll = () => {
   const handleMobileScroll = (e: Event) => {
     if (!useTouchInput.value) return;
     currentScroll.set(scrollContainer.value.scrollTop);
-  }
+  };
 
   const handleTouchStart = (e: TouchEvent) => {
     useTouchInput.set(true);
     isScrollBarHidden.set(true);
-  }
+  };
 
   useTouchInput.onChange((useTouchInput) => {
     // hide scroll bar when use touch input
     if (useTouchInput) {
       stylesheet(scrollBarElms.value.scrollBar, {
-        opacity: "0"
+        opacity: "0",
       });
+      stylesheet(document.body, {
+        overflowY: "scroll",
+      });
+      stylesheet(scrollContainer.value, {
+        height: "auto",
+      });
+
       jumpToScroll(scrollContainer.value.scrollTop);
     }
 
     // toggle scroll method
     setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput);
-  })
-
+  });
 
   const addScrollListeners = (newScrollContainer: HTMLDivElement) => {
     window.addEventListener("wheel", handleWheel);
@@ -86,7 +92,7 @@ export const createScroll = () => {
   const jumpToScroll = (position: number) => {
     useSmoothMotion = false;
     targetScroll.set(position);
-  }
+  };
 
   // re-init everything when the scroll container change
   scrollContainer.onChange((newScrollElement, prevScrollElement) => {
@@ -95,7 +101,11 @@ export const createScroll = () => {
 
     // setup scroll here
     scrollContent.set(newScrollElement.children[0] as HTMLDivElement);
-    setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput.value);
+    setupScrollDOM(
+      scrollContainer.value,
+      scrollContent.value,
+      useTouchInput.value
+    );
     captureHeight();
 
     // remove old scrollbar and add it to the new
@@ -117,8 +127,8 @@ export const createScroll = () => {
     document.querySelectorAll("img").forEach((img) => {
       img.addEventListener("load", () => {
         captureHeight();
-      })
-    })
+      });
+    });
   });
 
   targetScroll.onChange(() => {
@@ -187,11 +197,8 @@ export const createScroll = () => {
   const isInViewport = (elm: HTMLElement) => {
     const bounds = elm.getBoundingClientRect();
 
-    return (
-      bounds.bottom >= 0 &&
-      bounds.top <= (viewportHeight.value)
-    );
-  }
+    return bounds.bottom >= 0 && bounds.top <= viewportHeight.value;
+  };
 
   return {
     cleanupScroll,
@@ -200,6 +207,6 @@ export const createScroll = () => {
     recalculatePageHeight,
     observeScroll,
     unobserveScroll,
-    isInViewport
+    isInViewport,
   };
 };
