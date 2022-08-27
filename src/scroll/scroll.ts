@@ -17,7 +17,7 @@ const isTouchDevice: any =
 export const createScroll = () => {
   const targetScroll = state(0);
   const currentScroll = state(0);
-  const useTouchInput = state(false);
+  const useTouchInput = state(isTouchDevice);
 
   const scrollContainer = state<HTMLDivElement>(document.createElement("div"));
   const scrollContent = state<HTMLDivElement>(document.createElement("div"));
@@ -75,7 +75,6 @@ export const createScroll = () => {
     // toggle scroll method
     setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput);
   });
-  useTouchInput.set(isTouchDevice);
 
   const addScrollListeners = (newScrollContainer: HTMLDivElement) => {
     window.addEventListener("wheel", handleWheel);
