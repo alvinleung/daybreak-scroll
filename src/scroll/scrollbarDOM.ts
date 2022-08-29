@@ -31,8 +31,8 @@ export const createScrollbarFactory = (): ScrollBarDOMFactory => {
   function getScrollBar() {
     const scrollBar = document.createElement("div");
     stylesheet(scrollBar, {
-      transitionProperty: "transform, height, opacity",
-      transitionDuration: "0.2s",
+      transitionProperty: "height, opacity",
+      transitionDuration: "0.3s",
       height: "100%",
       width: "4px",
       backgroundColor: "rgba(0,0,0,.75)",
@@ -111,12 +111,12 @@ export const updateScrollbarDOM = ({
       updateScrollBar(targetScrollProgress);
       requestAnimationFrame(() =>
         stylesheet(scrollBar, {
-          transitionProperty: "transform, height, opacity",
+          transitionProperty: "height, opacity",
         })
       );
     });
   } else {
-    updateScrollBar(targetScrollProgress);
+    // updateScrollBar(targetScrollProgress);
   }
 
   scrollMotion.setValue(
@@ -126,7 +126,7 @@ export const updateScrollbarDOM = ({
         y: -scrollPosition + "px",
       });
       currentScroll.set(scrollPosition);
-      updateScrollBar(scrollPosition / scrollbarHeight);
+      updateScrollBar(scrollPosition / scrollableLength);
     },
     smooth
   );
