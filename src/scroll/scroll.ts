@@ -62,19 +62,19 @@ export const createScroll = () => {
       stylesheet(scrollBarElms.value.scrollBar, {
         opacity: "0",
       });
-      stylesheet(document.body, {
-        overflowY: "scroll",
-      });
-      stylesheet(scrollContainer.value, {
-        height: "auto",
-      });
+      // stylesheet(document.body, {
+      //   overflowY: "scroll",
+      // });
+      // stylesheet(scrollContainer.value, {
+      //   height: "auto",
+      // });
     } else {
-      stylesheet(document.body, {
-        overflowY: "hidden",
-      });
-      stylesheet(scrollContainer.value, {
-        height: "100vh",
-      });
+      // stylesheet(document.body, {
+      //   overflowY: "hidden",
+      // });
+      // stylesheet(scrollContainer.value, {
+      //   height: "100vh",
+      // });
     }
     jumpToScroll(scrollContainer.value.scrollTop);
 
