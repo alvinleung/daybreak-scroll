@@ -56,25 +56,34 @@ export const createScroll = () => {
     isScrollBarHidden.set(true);
   };
 
-  useTouchInput.onChange((useTouchInput) => {
+  const toggleTouchInput = (useTouchInput) => {
     // hide scroll bar when use touch input
     if (useTouchInput) {
       stylesheet(scrollBarElms.value.scrollBar, {
         opacity: "0",
       });
-      // stylesheet(document.body, {
-      //   overflowY: "scroll",
-      // });
-      // stylesheet(scrollContainer.value, {
-      //   height: "auto",
-      // });
-
-      jumpToScroll(scrollContainer.value.scrollTop);
+      stylesheet(document.body, {
+        overflowY: "scroll",
+      });
+      stylesheet(scrollContainer.value, {
+        height: "auto",
+      });
+    } else {
+      stylesheet(document.body, {
+        overflowY: "hidden",
+      });
+      stylesheet(scrollContainer.value, {
+        height: "100vh",
+      });
     }
+    jumpToScroll(scrollContainer.value.scrollTop);
 
     // toggle scroll method
     setupScrollDOM(scrollContainer.value, scrollContent.value, useTouchInput);
-  });
+  };
+
+  useTouchInput.onChange(toggleTouchInput);
+  toggleTouchInput(useTouchInput.value);
 
   const addScrollListeners = (newScrollContainer: HTMLDivElement) => {
     window.addEventListener("wheel", handleWheel);
