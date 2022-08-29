@@ -62,6 +62,7 @@ export const createScroll = () => {
       stylesheet(scrollBarElms.value.scrollBar, {
         opacity: "0",
       });
+      scrollContainer.value.classList.add("full-height");
       // stylesheet(document.body, {
       //   overflowY: "scroll",
       // });
@@ -69,6 +70,7 @@ export const createScroll = () => {
       //   height: "auto",
       // });
     } else {
+      scrollContainer.value.classList.remove("full-height");
       // stylesheet(document.body, {
       //   overflowY: "hidden",
       // });
