@@ -83,7 +83,7 @@ export const createScroll = () => {
   };
 
   useTouchInput.onChange(toggleTouchInput);
-  toggleTouchInput(useTouchInput.value);
+  window.addEventListener("load", () => toggleTouchInput(useTouchInput.value));
 
   const addScrollListeners = (newScrollContainer: HTMLDivElement) => {
     window.addEventListener("wheel", handleWheel);
